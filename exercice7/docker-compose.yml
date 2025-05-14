@@ -1,0 +1,59 @@
+services:
+  flask-app-71:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    container_name: flask-app-71
+    ports:
+      - "10011:10011"
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  flask-app-72:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    container_name: flask-app-72
+    ports:
+      - "10012:10012"
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    container_name: nginx
+    ports:
+      - "10010:80"
+    depends_on:
+      - flask-app-71
+      - flask-app-72
+    networks:
+      - app-network
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9091:9090"
+    networks:
+      - app-network
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
