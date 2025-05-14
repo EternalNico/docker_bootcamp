@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  flask-app-10:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    container_name: flask-app-10
+    ports:
+      - "10017:5000" 
+    secrets:
+      - db_password
+      - api_key
+    volumes:
+      - flask-app-10:/home/flaskuser/data 
+    deploy:
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+      restart_policy:
+        condition: on-failure
+    networks:
+      - secure-network
+
+  nginx-10:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    container_name: nginx-10
+    ports:
+      - "10018:80" 
+    depends_on:
+      - flask-app-10
+    deploy:
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: stop-first
+      restart_policy:
+        condition: on-failure
+    networks:
+      - secure-network
+
+secrets:
+  db_password:
+    file: ./secrets/db_password.txt
+  api_key:
+    file: ./secrets/api_key.txt
+
+volumes:
+  flask-app-10:
+
+networks:
+  secure-network:
+    driver: bridge
