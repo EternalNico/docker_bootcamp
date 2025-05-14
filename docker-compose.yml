@@ -55,10 +55,37 @@ services:
     networks:
       - custom-network
 
+  # Exercice 5 : Application Flask avec Nginx
+  flask-app-2:
+    build:
+      context: ./exercice5
+      dockerfile: Dockerfile.app
+    container_name: flask-app-2
+    ports:
+      - "10006:10006"
+    networks:
+      - app-network-2
+    restart: unless-stopped
+
+  nginx-2:
+    build:
+      context: ./exercice5
+      dockerfile: Dockerfile.nginx
+    container_name: nginx-2
+    ports:
+      - "10005:10005" 
+    depends_on:
+      - flask-app-2
+    networks:
+      - app-network-2
+
+
 volumes:
   data-volume:
   logs-volume:
 
 networks:
   custom-network:
+    driver: bridge
+  app-network-2:
     driver: bridge
