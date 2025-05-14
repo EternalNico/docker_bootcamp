@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation du Projet Docker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #0078d7;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        section {
+            padding: 20px;
+            margin: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #0078d7;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #0078d7;
+            color: #fff;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Documentation du Projet Docker</h1>
+        <p>Résumé des exercices et fonctionnalités implémentées</p>
+    </header>
+
+    <section>
+        <h2>Exercice 1 : Application Flask</h2>
+        <ul>
+            <li>Déploiement d'une application Flask simple.</li>
+            <li>Exposition du port 5000 pour accéder à l'application.</li>
+            <li>Utilisation d'un utilisateur non-root pour des raisons de sécurité.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Exercice 2 : Multi-stage Build</h2>
+        <ul>
+            <li>Utilisation de Node.js pour construire des assets statiques.</li>
+            <li>Déploiement des fichiers statiques avec Nginx.</li>
+            <li>Optimisation de l'image Docker grâce à un multi-stage build.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Exercice 3 : Gestion des Volumes</h2>
+        <ul>
+            <li>Configuration de volumes pour la persistance des données et des logs.</li>
+            <li>Montage en lecture seule pour les fichiers de configuration.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Exercice 4 : Reverse Proxy avec Nginx</h2>
+        <ul>
+            <li>Configuration de Nginx comme reverse proxy pour une application web.</li>
+            <li>Exposition des ports pour accéder à l'application via Nginx.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Exercice 5 : Application Flask avec Nginx</h2>
+        <ul>
+            <li>Déploiement d'une application Flask derrière un reverse proxy Nginx.</li>
+            <li>Configuration des dépendances entre les services.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Exercice 6 : Gestion des Environnements</h2>
+        <ul>
+            <li>Utilisation de fichiers `.env` pour gérer les variables d'environnement.</li>
+            <li>Configuration distincte pour les environnements de développement et de production.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Exercice 7 : Scale et Load Balancing</h2>
+        <ul>
+            <li>Scale horizontal des services Flask avec plusieurs instances.</li>
+            <li>Configuration de Nginx pour le load balancing.</li>
+            <li>Ajout de Prometheus et Grafana pour le monitoring.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Exercice 8 : Healthchecks</h2>
+        <ul>
+            <li>Implémentation de routes `/health` pour vérifier la disponibilité des services.</li>
+            <li>Configuration de Docker pour redémarrer automatiquement les conteneurs en cas de défaillance.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Exercice 9 : Sécurité</h2>
+        <ul>
+            <li>Utilisation d'utilisateurs non-root pour les conteneurs.</li>
+            <li>Limitation des ressources CPU et mémoire pour chaque service.</li>
+            <li>Isolation des services dans des réseaux Docker personnalisés.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Exercice 10 : Déploiement</h2>
+        <ul>
+            <li>Gestion des secrets avec Docker Secrets.</li>
+            <li>Configuration de volumes persistants pour les données.</li>
+            <li>Stratégies de mise à jour des services avec Docker Compose.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Comment lancer le projet</h2>
+        <p>Voici les étapes pour lancer le projet :</p>
+        <ol>
+            <li>Assurez-vous que Docker et Docker Compose sont installés sur votre machine.</li>
+            <li>Clonez le dépôt ou placez-vous dans le répertoire du projet.</li>
+            <li>Construisez et démarrez les services avec la commande suivante :</li>
+            <pre><code>docker-compose up --build</code></pre>
+            <li>Pour arrêter les services, utilisez la commande :</li>
+            <pre><code>docker-compose down</code></pre>
+        </ol>
+    </section>
+
+    <section>
+        <h2>Accéder aux services</h2>
+        <p>Une fois les services démarrés, vous pouvez y accéder via les ports configurés :</p>
+        <ul>
+            <li><strong>Application Flask :</strong> <a href="http://localhost:10017" target="_blank">http://localhost:10017</a></li>
+            <li><strong>Nginx (reverse proxy) :</strong> <a href="http://localhost:10018" target="_blank">http://localhost:10018</a></li>
+            <li><strong>Prometheus (monitoring) :</strong> <a href="http://localhost:9090" target="_blank">http://localhost:9090</a></li>
+            <li><strong>Grafana (visualisation) :</strong> <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Commandes utiles</h2>
+        <p>Voici quelques commandes utiles pour interagir avec les conteneurs :</p>
+        <ul>
+            <li><strong>Voir les conteneurs en cours d'exécution :</strong></li>
+            <pre><code>docker ps</code></pre>
+            <li><strong>Voir les logs d'un conteneur :</strong></li>
+            <pre><code>docker logs [nom_du_conteneur]</code></pre>
+            <li><strong>Se connecter à un conteneur :</strong></li>
+            <pre><code>docker exec -it [nom_du_conteneur] sh</code></pre>
+            <li><strong>Supprimer tous les conteneurs et volumes :</strong></li>
+            <pre><code>docker-compose down --volumes</code></pre>
+        </ul>
+    </section>
+
+    <footer>
+        <p>Projet Docker - Documentation générée</p>
+    </footer>
+</body>
+</html>
