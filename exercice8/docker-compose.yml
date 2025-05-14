@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  flask-app-8:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    container_name: flask-app-8
+    ports:
+      - "10013:10013" 
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:10013/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    restart: always
+    networks:
+      - app-network
+
+  nginx-8:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    container_name: nginx-8
+    ports:
+      - "10014:10014" 
+    depends_on:
+      flask-app-8:
+        condition: service_healthy
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

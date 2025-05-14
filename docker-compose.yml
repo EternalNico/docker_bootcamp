@@ -89,3 +89,6 @@ networks:
     driver: bridge
   app-network-2:
     driver: bridge
+
+  # pc qui rame donc je passe par des docker compose par dossier d'exercice pour éviter de lancer tout les conteneurs d'un coup
+  
