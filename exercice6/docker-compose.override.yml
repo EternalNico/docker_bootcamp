@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  flask-app-6:
+    env_file:
+      - .env.dev
+
+  nginx-6:
+    build:
+      args:
+        ENV: dev

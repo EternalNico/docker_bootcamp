@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  flask-app-6:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    container_name: flask-app-6
+    ports:
+      - "10008:10008"
+    env_file:
+      - .env
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  nginx-6:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+      args:
+        ENV: ${APP_ENV}
+    container_name: nginx-6
+    ports:
+      - "10007:80"
+    depends_on:
+      - flask-app-6
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
