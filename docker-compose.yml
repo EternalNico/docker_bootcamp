@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+  # Exercice 1 : Application Flask
   flask-app:
     build:
       context: ./exercice1
@@ -10,6 +11,7 @@ services:
     container_name: flask-app
     restart: unless-stopped
 
+  # Exercice 2 : Application Nginx
   nginx-app:
     build:
       context: ./exercice2
@@ -19,6 +21,7 @@ services:
     container_name: nginx-app
     restart: unless-stopped
 
+  # Exercice 3 : Application avec volumes
   volume-app:
     image: ubuntu:20.04
     container_name: volume-app
@@ -29,6 +32,33 @@ services:
     command: ["tail", "-f", "/dev/null"] # Garde le conteneur actif pour tester les volumes
     restart: unless-stopped
 
+  # Exercice 4 : Application Web avec Nginx
+  web-app:
+    image: python:3.9-slim
+    container_name: web-app
+    working_dir: /app
+    volumes:
+      - ./exercice4/web-app:/app
+    command: ["python", "-m", "http.server", "10003"]
+    expose:
+      - "10003"
+    networks:
+      - custom-network
+
+  nginx-proxy:
+    image: nginx:latest
+    container_name: nginx-proxy
+    volumes:
+      - ./exercice4/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "10004:10004"
+    networks:
+      - custom-network
+
 volumes:
   data-volume:
   logs-volume:
+
+networks:
+  custom-network:
+    driver: bridge
