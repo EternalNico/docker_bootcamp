@@ -1,0 +1,5 @@
+# Configuration de l'application
+app:
+  name: VolumeApp
+  version: 1.0
+  environment: development

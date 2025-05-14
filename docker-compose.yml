@@ -18,3 +18,17 @@ services:
       - "10001:10000" # Mappe le port 10000 du conteneur au port 8082 de l'hôte
     container_name: nginx-app
     restart: unless-stopped
+
+  volume-app:
+    image: ubuntu:20.04
+    container_name: volume-app
+    volumes:
+      - data-volume:/data # Volume pour la persistance des données
+      - logs-volume:/var/log/app # Volume pour les logs
+      - ./exercice3/config:/etc/app:ro # Montage en lecture seule pour les configurations
+    command: ["tail", "-f", "/dev/null"] # Garde le conteneur actif pour tester les volumes
+    restart: unless-stopped
+
+volumes:
+  data-volume:
+  logs-volume:
