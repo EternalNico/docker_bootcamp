@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  flask-app:
+    build:
+      context: ./exercice1
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5000" # Mappe le port 5000 du conteneur au port 5001 de l'hôte
+    container_name: flask-app
+    restart: unless-stopped
+
+  nginx-app:
+    build:
+      context: ./exercice2
+      dockerfile: Dockerfile
+    ports:
+      - "10001:10000" # Mappe le port 10000 du conteneur au port 8082 de l'hôte
+    container_name: nginx-app
+    restart: unless-stopped
