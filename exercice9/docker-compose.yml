@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  flask-app-9:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    container_name: flask-app-9
+    ports:
+      - "10015:5000" 
+    networks:
+      - secure-network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5" # Limite à 50% d'un CPU
+          memory: "256M" # Limite à 256 Mo de RAM
+    restart: unless-stopped
+
+  nginx-9:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    container_name: nginx-9
+    ports:
+      - "10016:80" # Mappe le port 80 du conteneur au port 10016 de l'hôte
+    networks:
+      - secure-network
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25" # Limite à 25% d'un CPU
+          memory: "128M" # Limite à 128 Mo de RAM
+    depends_on:
+      - flask-app-9
+
+networks:
+  secure-network:
+    driver: bridge
